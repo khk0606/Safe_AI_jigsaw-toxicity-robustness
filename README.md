@@ -1,32 +1,46 @@
-# Project Proposal Share Package
+# Robustness Evaluation of Toxicity Detection under Text Perturbations
 
-Project title:
+This project evaluates whether toxicity classifiers remain reliable when toxic comments are obfuscated with small text perturbations.
+
+The current project upload focuses on:
 
 ```text
-Robustness Evaluation of Toxicity Detection Models under Text Perturbations
+TextCNN clean baseline
+TextCNN perturbation-augmented defense models
+RoBERTa SOTA-style reference model
 ```
 
-This folder contains the shareable files requested for the project proposal submission, except for the presentation file. The presentation `.pptx` will be submitted separately.
+The presentation deck is submitted separately. This repository contains the shareable dataset, model artifacts, training recipes, result tables, and figures.
 
-## What To Submit
+## Project Motivation
 
-Recommended GitHub upload:
+Online moderation systems should detect toxic comments even when users slightly modify words to bypass filters.
 
-| File or folder | Purpose | Upload? |
-|---|---|---|
-| `README.md` | Overview of this share package | Yes |
-| `jigsaw_toxicity_robustness_shareable.zip` | Shareable clean, augmented, and perturbed evaluation datasets | Yes |
-| `models_textcnn_core.zip` | Main TextCNN checkpoints and model notes | Yes |
-| `training_recipes_results.zip` | Training recipes, scripts, result tables, and figures | Yes |
-| `models_tfidf_mlp_optional_large.zip` | Optional TF-IDF/MLP baseline checkpoints | Optional; large |
-| `models_shareable/` | Unzipped model documentation and index | Optional if using zip |
-| `training_recipes_results/` | Unzipped recipe/result documentation | Optional if using zip |
+Examples:
 
-The optional TF-IDF/MLP model zip is about 193 MB and may exceed normal GitHub file limits. If upload size is limited, do not upload it. The README and result files still describe those baselines.
+```text
+idiot  -> i d i o t
+hate   -> h@te
+bad    -> bad!!!
+```
 
-## 1. Used Dataset
+The key question is:
 
-Dataset source:
+```text
+Does a model that performs well on clean comments still work after realistic text obfuscation?
+```
+
+## Repository Files
+
+| File | Description |
+|---|---|
+| `jigsaw_toxicity_robustness_shareable.zip` | Shareable Jigsaw subset, targeted augmented training set, and clean/perturbed evaluation set |
+| `models_textcnn_core.zip` | TextCNN checkpoints and RoBERTa reference information |
+| `training_recipes_results.zip` | Training scripts, evaluation scripts, result tables, figures, and explanations |
+
+## Dataset
+
+Source dataset:
 
 ```text
 Jigsaw Unintended Bias in Toxicity Classification
@@ -53,99 +67,84 @@ Balanced split:
 | Validation | 1,000 | 1,000 | 2,000 |
 | Test | 1,000 | 1,000 | 2,000 |
 
-Dataset package:
-
-```text
-jigsaw_toxicity_robustness_shareable.zip
-```
-
-Contents:
+The dataset zip includes:
 
 ```text
 jigsaw_subset_14k_clean.csv
 train_augmented_targeted_100.csv
 test_clean_and_perturbed_eval.csv
-README.md
 manifest.json
 column_schema.csv
 reproducibility/perturbations.py
 ```
 
-## 2. Used Models
+## Perturbations
 
-Main uploaded model package:
+The perturbation generator changes the text surface form while keeping the original label fixed.
 
-```text
-models_textcnn_core.zip
-```
+| Perturbation | Example |
+|---|---|
+| typo | `stupid -> stupdi` |
+| character substitution | `hate -> h@te` |
+| spacing | `idiot -> i d i o t` |
+| repetition | `bad -> baaad` |
+| punctuation noise | `bad -> bad!!!` |
+| combined | multiple perturbations mixed |
 
-Included TextCNN checkpoints:
+## Models
+
+### TextCNN
+
+The project trains and evaluates TextCNN variants:
 
 | Model | Role |
 |---|---|
-| `textcnn_clean_longer.pt` | Clean TextCNN baseline |
-| `textcnn_aug_25_general.pt` | 25% general perturbation augmentation |
-| `textcnn_aug_100_targeted.pt` | Final targeted robustness defense |
+| TextCNN clean | Baseline trained on clean comments |
+| TextCNN 25% general augmentation | Augmentation-ratio comparison |
+| TextCNN 100% targeted augmentation | Main robustness defense model |
 
-SOTA-style reference model:
+TextCNN architecture:
+
+```text
+Embedding
+-> Conv1D kernel sizes [3, 4, 5]
+-> Global max pooling
+-> Dropout
+-> Linear output layer
+```
+
+### RoBERTa Reference
+
+Public SOTA-style reference:
 
 ```text
 unitary/unbiased-toxic-roberta
 https://huggingface.co/unitary/unbiased-toxic-roberta
 ```
 
-This RoBERTa model is public, so the checkpoint is not re-uploaded here.
+The RoBERTa checkpoint is not uploaded because it is publicly available. It is used as a strong clean-performance reference model.
 
-Optional baseline models:
+## Metrics
 
-```text
-models_tfidf_mlp_optional_large.zip
-```
+| Metric | Meaning | Better Direction |
+|---|---|---|
+| Clean F1 | F1 score on original clean text | Higher |
+| Perturbed F1 | F1 score after text perturbation | Higher |
+| F1 Drop | Clean F1 - perturbed F1 | Lower |
+| ASR | Clean-correct samples that become wrong after perturbation | Lower |
+| Toxic Recall Drop | Drop in recall on toxic-only samples | Lower |
 
-These contain word-level TF-IDF MLP and character n-gram TF-IDF MLP baselines. They are optional because the zip file is large.
+## Main Results
 
-## 3. Training Recipes And Results
+### Clean Performance
 
-Main recipe/results package:
+| Model | Clean F1 | AUROC |
+|---|---:|---:|
+| RoBERTa reference | 0.830 | 0.987 |
+| TextCNN clean | 0.814 | 0.901 |
+| TextCNN targeted augmentation | 0.827 | 0.904 |
 
-```text
-training_recipes_results.zip
-```
-
-It contains:
-
-```text
-README.md
-requirements.txt
-reports/*.csv
-reports/*.md
-figures/*.png
-scripts/*.py
-```
-
-The README inside that zip explains:
-
-```text
-dataset preprocessing
-perturbation generation
-TextCNN training
-TF-IDF/MLP baseline training
-RoBERTa reference evaluation
-F1 Drop, ASR, and Toxic Recall Drop metrics
-main result tables and interpretation
-```
-
-## 4. Main Result Summary
-
-Clean F1 comparison:
-
-| Model | Clean F1 |
-|---|---:|
-| RoBERTa reference | 0.830 |
-| TextCNN clean | 0.814 |
-| TextCNN targeted augmentation | 0.827 |
-
-Combined perturbation robustness:
+### Combined Perturbation Robustness
 
 | Model | F1 Drop | ASR |
 |---|---:|---:|
@@ -153,7 +152,7 @@ Combined perturbation robustness:
 | TextCNN clean | 0.086 | 13.2% |
 | TextCNN targeted augmentation | 0.028 | 5.7% |
 
-Toxic-only combined evaluation:
+### Toxic-only Evaluation
 
 | Model | Clean Toxic Recall | Perturbed Toxic Recall | Recall Drop | ASR / Evasion |
 |---|---:|---:|---:|---:|
@@ -161,26 +160,36 @@ Toxic-only combined evaluation:
 | TextCNN clean | 0.828 | 0.676 | 0.152 | 13.2% |
 | TextCNN targeted augmentation | 0.846 | 0.804 | 0.042 | 5.7% |
 
-Main interpretation:
+## Key Takeaway
+
+RoBERTa has the strongest clean performance, but targeted TextCNN is more stable under this controlled text-obfuscation perturbation setting.
+
+This does not mean TextCNN is generally better than RoBERTa. The claim is narrower:
 
 ```text
-Clean F1 alone is not enough for trustworthy toxicity moderation.
-Targeted perturbation augmentation made TextCNN more stable under the tested text-obfuscation threat model.
-This does not claim that TextCNN is generally better than RoBERTa.
+targeted perturbation augmentation improves robustness under the tested moderation-evasion threat model.
 ```
 
-## 5. Reproducibility Notes
+## Reproducibility
 
-The exact scripts used for preprocessing, perturbation, training, and evaluation are included in:
+The full training and evaluation details are in:
 
 ```text
 training_recipes_results.zip
 ```
 
-The exported dataset also includes the perturbation code used to generate shareable perturbed examples.
-
-Recommended citation note for the report or GitHub README:
+It includes:
 
 ```text
-This project uses a balanced subset derived from the Jigsaw Unintended Bias in Toxicity Classification dataset and evaluates robustness under rule-based text perturbations.
+scripts/
+reports/
+figures/
+requirements.txt
+README.md
+```
+
+The model checkpoints are in:
+
+```text
+models_textcnn_core.zip
 ```

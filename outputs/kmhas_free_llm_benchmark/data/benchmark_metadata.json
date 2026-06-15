@@ -1,0 +1,27 @@
+{
+  "seed": 20260609,
+  "variants": [
+    "clean",
+    "romanized_35",
+    "romanized_70",
+    "roman_glyph_35",
+    "roman_glyph_70"
+  ],
+  "test_base_rows": 500,
+  "test_total_rows": 2500,
+  "calibration_base_rows": 500,
+  "calibration_total_rows": 2500,
+  "lora_train_base_rows": 4000,
+  "lora_train_total_rows": 12000,
+  "lora_valid_base_rows": 500,
+  "lora_valid_total_rows": 1500,
+  "split_overlap": {
+    "lora_train_lora_valid": 0,
+    "lora_train_calibration": 0,
+    "lora_train_test": 0,
+    "lora_valid_calibration": 0,
+    "lora_valid_test": 0,
+    "calibration_test": 0
+  },
+  "root": "."
+}

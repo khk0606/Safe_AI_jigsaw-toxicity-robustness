@@ -1,0 +1,16 @@
+{
+  "run_date": "2026-06-13",
+  "rows_per_system": 250,
+  "unique_base_ids": 50,
+  "displayed_model_recorded": false,
+  "systems": [
+    "normalization_char_tfidf_mlp",
+    "qwen_lora_normalized_calibrated",
+    "qwen_raw_uncalibrated",
+    "chatgpt_free",
+    "gemini_free",
+    "claude_free",
+    "grok_free"
+  ],
+  "report": "outputs/kmhas_free_llm_benchmark/reports/external_ui_250_comparison_ko.md"
+}

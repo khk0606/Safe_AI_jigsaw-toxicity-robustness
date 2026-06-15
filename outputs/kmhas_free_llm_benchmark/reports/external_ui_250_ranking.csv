@@ -1,0 +1,8 @@
+system,worst_case_balanced_accuracy,mean_balanced_accuracy,mean_macro_f1,worst_max_failure_rate,mean_fnr,mean_fpr,mean_predicted_hate_rate,total_parse_failures,display_name
+gemini_free,0.8600000000000001,0.892,0.891430692840769,0.2,0.17600000000000002,0.04,0.43200000000000005,0,Gemini Free UI
+claude_free,0.8,0.8320000000000001,0.830356875896606,0.36,0.088,0.248,0.5800000000000001,0,Claude Free UI
+chatgpt_free,0.78,0.82,0.8168162980192626,0.4,0.28,0.08,0.4,0,ChatGPT Free UI
+grok_free,0.7,0.796,0.7928567995296474,0.48,0.12,0.288,0.5840000000000001,0,Grok Free UI
+normalization_char_tfidf_mlp,0.7,0.736,0.7296448961502391,0.48,0.40800000000000003,0.12,0.356,0,Normalization + Char MLP
+qwen_lora_normalized_calibrated,0.5800000000000001,0.6679999999999999,0.665873734976725,0.52,0.28,0.384,0.552,0,Qwen final
+qwen_raw_uncalibrated,0.44,0.552,0.49295343137254904,0.92,0.11200000000000002,0.784,0.836,0,Qwen raw

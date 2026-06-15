@@ -1,0 +1,2 @@
+run_name,threshold,rows,valid_predictions,parse_failures,parse_failure_rate,accuracy,balanced_accuracy,macro_f1,hate_precision,hate_recall,fnr,fpr,predicted_hate_rate,balanced_error,max_failure_rate,tn,fp,fn,tp
+qwen_lora_normalized,-0.42875000000000796,2500,2500,0,0.0,0.7364,0.7363999999999999,0.7351019997990151,0.7073684210526315,0.8064,0.1936,0.3336,0.57,0.2636,0.3336,833,417,242,1008

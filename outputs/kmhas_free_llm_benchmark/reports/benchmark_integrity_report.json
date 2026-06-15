@@ -1,0 +1,149 @@
+{
+  "passed": true,
+  "checks": {
+    "test_rows": true,
+    "calibration_rows": true,
+    "test_unique_variant_ids": true,
+    "calibration_unique_variant_ids": true,
+    "test_label_consistency": true,
+    "calibration_label_consistency": true,
+    "test_text_nonempty": true,
+    "test_normalized_nonempty": true,
+    "clean_rows_500": true,
+    "clean_balanced": true,
+    "romanized_35_rows_500": true,
+    "romanized_35_balanced": true,
+    "romanized_70_rows_500": true,
+    "romanized_70_balanced": true,
+    "roman_glyph_35_rows_500": true,
+    "roman_glyph_35_balanced": true,
+    "roman_glyph_70_rows_500": true,
+    "roman_glyph_70_balanced": true,
+    "lora_train_max_tokens_256": true,
+    "lora_train_token_count_positive": true,
+    "lora_train_supervised_tokens_positive": true,
+    "lora_valid_max_tokens_256": true,
+    "lora_valid_token_count_positive": true,
+    "lora_valid_supervised_tokens_positive": true,
+    "no_overlap_test_calibration": true,
+    "no_overlap_test_lora_train": true,
+    "no_overlap_test_lora_valid": true,
+    "no_overlap_calibration_lora_train": true,
+    "no_overlap_calibration_lora_valid": true,
+    "no_overlap_lora_train_lora_valid": true,
+    "prediction_char_tfidf_mlp_matches_expected_scope": true,
+    "prediction_chatgpt_free_matches_expected_scope": true,
+    "prediction_claude_free_matches_expected_scope": true,
+    "prediction_gemini_free_matches_expected_scope": true,
+    "prediction_grok_free_matches_expected_scope": true,
+    "prediction_koelectra_small_matches_expected_scope": true,
+    "prediction_normalization_char_tfidf_mlp_matches_expected_scope": true,
+    "prediction_qwen_lora_normalized_calibrated_matches_expected_scope": true,
+    "prediction_qwen_lora_normalized_uncalibrated_matches_expected_scope": true,
+    "prediction_qwen_normalized_calibrated_matches_expected_scope": true,
+    "prediction_qwen_normalized_uncalibrated_matches_expected_scope": true,
+    "prediction_qwen_raw_calibrated_matches_expected_scope": true,
+    "prediction_qwen_raw_uncalibrated_matches_expected_scope": true
+  },
+  "split_overlap": {
+    "test_calibration": 0,
+    "test_lora_train": 0,
+    "test_lora_valid": 0,
+    "calibration_lora_train": 0,
+    "calibration_lora_valid": 0,
+    "lora_train_lora_valid": 0
+  },
+  "completed_prediction_files": {
+    "char_tfidf_mlp.csv": {
+      "rows": 2500,
+      "scope": "main_2500",
+      "unique_variant_ids": true,
+      "matches_expected_scope": true,
+      "parse_failures": 0
+    },
+    "chatgpt_free.csv": {
+      "rows": 250,
+      "scope": "supplementary_250",
+      "unique_variant_ids": true,
+      "matches_expected_scope": true,
+      "parse_failures": 0
+    },
+    "claude_free.csv": {
+      "rows": 250,
+      "scope": "supplementary_250",
+      "unique_variant_ids": true,
+      "matches_expected_scope": true,
+      "parse_failures": 0
+    },
+    "gemini_free.csv": {
+      "rows": 250,
+      "scope": "supplementary_250",
+      "unique_variant_ids": true,
+      "matches_expected_scope": true,
+      "parse_failures": 0
+    },
+    "grok_free.csv": {
+      "rows": 250,
+      "scope": "supplementary_250",
+      "unique_variant_ids": true,
+      "matches_expected_scope": true,
+      "parse_failures": 0
+    },
+    "koelectra_small.csv": {
+      "rows": 2500,
+      "scope": "main_2500",
+      "unique_variant_ids": true,
+      "matches_expected_scope": true,
+      "parse_failures": 0
+    },
+    "normalization_char_tfidf_mlp.csv": {
+      "rows": 2500,
+      "scope": "main_2500",
+      "unique_variant_ids": true,
+      "matches_expected_scope": true,
+      "parse_failures": 0
+    },
+    "qwen_lora_normalized_calibrated.csv": {
+      "rows": 2500,
+      "scope": "main_2500",
+      "unique_variant_ids": true,
+      "matches_expected_scope": true,
+      "parse_failures": 0
+    },
+    "qwen_lora_normalized_uncalibrated.csv": {
+      "rows": 2500,
+      "scope": "main_2500",
+      "unique_variant_ids": true,
+      "matches_expected_scope": true,
+      "parse_failures": 0
+    },
+    "qwen_normalized_calibrated.csv": {
+      "rows": 2500,
+      "scope": "main_2500",
+      "unique_variant_ids": true,
+      "matches_expected_scope": true,
+      "parse_failures": 0
+    },
+    "qwen_normalized_uncalibrated.csv": {
+      "rows": 2500,
+      "scope": "main_2500",
+      "unique_variant_ids": true,
+      "matches_expected_scope": true,
+      "parse_failures": 0
+    },
+    "qwen_raw_calibrated.csv": {
+      "rows": 2500,
+      "scope": "main_2500",
+      "unique_variant_ids": true,
+      "matches_expected_scope": true,
+      "parse_failures": 0
+    },
+    "qwen_raw_uncalibrated.csv": {
+      "rows": 2500,
+      "scope": "main_2500",
+      "unique_variant_ids": true,
+      "matches_expected_scope": true,
+      "parse_failures": 0
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "adapter_path": "models/kmhas_free_llm_benchmark/qwen_lora/best",
+  "input_mode": "normalized",
+  "batch_size": 8,
+  "max_length": 256,
+  "calibrated_threshold": -0.42875000000000796,
+  "calibration_only": false,
+  "elapsed_seconds": 250.09343218803406
+}

@@ -1,0 +1,9 @@
+{
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "adapter_path": null,
+  "input_mode": "raw",
+  "batch_size": 8,
+  "max_length": 256,
+  "calibrated_threshold": 1.25,
+  "elapsed_seconds": 96.76343774795532
+}

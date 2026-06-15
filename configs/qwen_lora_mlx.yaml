@@ -1,0 +1,33 @@
+model: Qwen/Qwen2.5-1.5B-Instruct
+train: true
+data: outputs/kmhas_free_llm_benchmark/data/qwen_lora
+fine_tune_type: lora
+optimizer: adamw
+optimizer_config:
+  adamw:
+    eps: 0.000001
+    weight_decay: 0.0
+    bias_correction: true
+mask_prompt: true
+num_layers: 16
+batch_size: 8
+grad_accumulation_steps: 1
+iters: 4500
+val_batches: 50
+learning_rate: 0.00002
+lr_schedule:
+  name: cosine_decay
+  arguments: [0.00002, 4400, 0.000002]
+  warmup: 100
+  warmup_init: 0.000001
+steps_per_report: 25
+steps_per_eval: 500
+adapter_path: models/kmhas_free_llm_benchmark/qwen_lora
+save_every: 1500
+max_seq_length: 256
+grad_checkpoint: true
+seed: 20260609
+lora_parameters:
+  rank: 8
+  dropout: 0.0
+  scale: 2.0

@@ -1,0 +1,50 @@
+{
+    "adapter_path": "models/kmhas_free_llm_benchmark/qwen_lora",
+    "batch_size": 8,
+    "clear_cache_threshold": 0,
+    "config": "configs/qwen_lora_mlx.yaml",
+    "data": "outputs/kmhas_free_llm_benchmark/data/qwen_lora",
+    "fine_tune_type": "lora",
+    "grad_accumulation_steps": 1,
+    "grad_checkpoint": true,
+    "iters": 4500,
+    "learning_rate": 2e-05,
+    "lora_parameters": {
+        "rank": 8,
+        "dropout": 0.0,
+        "scale": 2.0
+    },
+    "lr_schedule": {
+        "name": "cosine_decay",
+        "arguments": [
+            2e-05,
+            4400,
+            2e-06
+        ],
+        "warmup": 100,
+        "warmup_init": 1e-06
+    },
+    "mask_prompt": true,
+    "max_seq_length": 256,
+    "model": "Qwen/Qwen2.5-1.5B-Instruct",
+    "num_layers": 16,
+    "optimizer": "adamw",
+    "optimizer_config": {
+        "adamw": {
+            "eps": 1e-06,
+            "weight_decay": 0.0,
+            "bias_correction": true
+        }
+    },
+    "project_name": null,
+    "report_to": null,
+    "resume_adapter_file": null,
+    "save_every": 1500,
+    "seed": 20260609,
+    "steps_per_eval": 500,
+    "steps_per_report": 25,
+    "test": false,
+    "test_batches": 500,
+    "train": true,
+    "val_batches": 50
+}

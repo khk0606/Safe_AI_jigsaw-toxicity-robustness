@@ -1,0 +1,13 @@
+{
+  "benchmark": "outputs/kmhas_free_llm_benchmark/data/benchmark_test_2500.csv",
+  "systems": {
+    "char_tfidf_mlp": {
+      "model_path": "models/kmhas_glyph_mix/char_tfidf_mlp_clean_only.joblib",
+      "input_column": "text"
+    },
+    "normalization_char_tfidf_mlp": {
+      "model_path": "models/kmhas_glyph_mix/defense_models/normalization_char_tfidf_mlp.joblib",
+      "input_column": "normalized_text"
+    }
+  }
+}

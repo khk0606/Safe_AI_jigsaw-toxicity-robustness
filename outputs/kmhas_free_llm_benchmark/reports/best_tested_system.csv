@@ -1,0 +1,2 @@
+conclusion,system,worst_case_balanced_accuracy,mean_balanced_accuracy,mean_macro_f1,worst_max_failure_rate,mean_fnr,mean_fpr,mean_predicted_hate_rate,total_parse_failures
+best tested system on this K-MHaS obfuscation benchmark,normalization_char_tfidf_mlp,0.772,0.7971999999999999,0.7965125775599952,0.312,0.2552,0.15040000000000003,0.4476,0

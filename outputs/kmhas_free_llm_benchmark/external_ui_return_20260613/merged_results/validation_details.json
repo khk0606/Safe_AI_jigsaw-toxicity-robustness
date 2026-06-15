@@ -1,0 +1,34 @@
+{
+  "chatgpt_free": {
+    "raw_records": 250,
+    "valid_rows": 250,
+    "missing_rows": 0,
+    "duplicates": [],
+    "unexpected": [],
+    "invalid_labels": []
+  },
+  "gemini_free": {
+    "raw_records": 250,
+    "valid_rows": 250,
+    "missing_rows": 0,
+    "duplicates": [],
+    "unexpected": [],
+    "invalid_labels": []
+  },
+  "claude_free": {
+    "raw_records": 250,
+    "valid_rows": 250,
+    "missing_rows": 0,
+    "duplicates": [],
+    "unexpected": [],
+    "invalid_labels": []
+  },
+  "grok_free": {
+    "raw_records": 250,
+    "valid_rows": 250,
+    "missing_rows": 0,
+    "duplicates": [],
+    "unexpected": [],
+    "invalid_labels": []
+  }
+}

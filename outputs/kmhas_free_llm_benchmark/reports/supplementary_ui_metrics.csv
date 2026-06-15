@@ -1,0 +1,21 @@
+rows,valid_predictions,parse_failures,parse_failure_rate,accuracy,balanced_accuracy,macro_f1,hate_precision,hate_recall,fnr,fpr,predicted_hate_rate,balanced_error,max_failure_rate,tn,fp,fn,tp,system,split,variant,variant_label,balanced_accuracy_drop_from_clean,source_file
+50,50,0,0.0,0.78,0.78,0.7726333195535345,0.9375,0.6,0.4,0.04,0.32,0.22,0.4,24,1,10,15,chatgpt_free,test,clean,Clean,0.0,chatgpt_free_metrics.csv
+50,50,0,0.0,0.82,0.8200000000000001,0.8139727159983464,1.0,0.64,0.36,0.0,0.32,0.18,0.36,25,0,9,16,chatgpt_free,test,romanized_35,Romanized 35,-0.04,chatgpt_free_metrics.csv
+50,50,0,0.0,0.82,0.8200000000000001,0.8181818181818181,0.9,0.72,0.28,0.08,0.4,0.18,0.28,23,2,7,18,chatgpt_free,test,romanized_70,Romanized 70,-0.04,chatgpt_free_metrics.csv
+50,50,0,0.0,0.86,0.86,0.8599439775910365,0.8461538461538461,0.88,0.12,0.16,0.52,0.14,0.16,21,4,3,22,chatgpt_free,test,roman_glyph_35,Roman+Glyph 35,-0.0799999999999999,chatgpt_free_metrics.csv
+50,50,0,0.0,0.82,0.8200000000000001,0.8193496587715776,0.8636363636363636,0.76,0.24,0.12,0.44,0.18,0.24,22,3,6,19,chatgpt_free,test,roman_glyph_70,Roman+Glyph 70,-0.04,chatgpt_free_metrics.csv
+50,50,0,0.0,0.88,0.88,0.8798076923076923,0.8518518518518519,0.92,0.08,0.16,0.54,0.12,0.16,21,4,2,23,claude_free,test,clean,Clean,0.0,claude_free_metrics.csv
+50,50,0,0.0,0.88,0.88,0.8798076923076923,0.8518518518518519,0.92,0.08,0.16,0.54,0.12,0.16,21,4,2,23,claude_free,test,romanized_35,Romanized 35,0.0,claude_free_metrics.csv
+50,50,0,0.0,0.8,0.8,0.7947454844006567,0.7272727272727273,0.96,0.04,0.36,0.66,0.1999999999999999,0.36,16,9,1,24,claude_free,test,romanized_70,Romanized 70,0.0799999999999999,claude_free_metrics.csv
+50,50,0,0.0,0.8,0.8,0.7987117552334944,0.7586206896551724,0.88,0.12,0.28,0.58,0.2,0.28,18,7,3,22,claude_free,test,roman_glyph_35,Roman+Glyph 35,0.0799999999999999,claude_free_metrics.csv
+50,50,0,0.0,0.8,0.8,0.7987117552334944,0.7586206896551724,0.88,0.12,0.28,0.58,0.2,0.28,18,7,3,22,claude_free,test,roman_glyph_70,Roman+Glyph 70,0.0799999999999999,claude_free_metrics.csv
+50,50,0,0.0,0.9,0.9,0.898989898989899,1.0,0.8,0.2,0.0,0.4,0.1,0.2,25,0,5,20,gemini_free,test,clean,Clean,0.0,gemini_free_metrics.csv
+50,50,0,0.0,0.9,0.9,0.898989898989899,1.0,0.8,0.2,0.0,0.4,0.1,0.2,25,0,5,20,gemini_free,test,romanized_35,Romanized 35,0.0,gemini_free_metrics.csv
+50,50,0,0.0,0.88,0.88,0.8798076923076923,0.9130434782608696,0.84,0.16,0.08,0.46,0.12,0.16,23,2,4,21,gemini_free,test,romanized_70,Romanized 70,0.02,gemini_free_metrics.csv
+50,50,0,0.0,0.92,0.92,0.9198717948717948,0.9565217391304348,0.88,0.12,0.04,0.46,0.08,0.12,24,1,3,22,gemini_free,test,roman_glyph_35,Roman+Glyph 35,-0.0199999999999999,gemini_free_metrics.csv
+50,50,0,0.0,0.86,0.8600000000000001,0.8594941790445605,0.9090909090909092,0.8,0.2,0.08,0.44,0.14,0.2,23,2,5,20,gemini_free,test,roman_glyph_70,Roman+Glyph 70,0.0399999999999999,gemini_free_metrics.csv
+50,50,0,0.0,0.88,0.88,0.8798076923076923,0.8518518518518519,0.92,0.08,0.16,0.54,0.12,0.16,21,4,2,23,grok_free,test,clean,Clean,0.0,grok_free_metrics.csv
+50,50,0,0.0,0.88,0.88,0.8798076923076923,0.8518518518518519,0.92,0.08,0.16,0.54,0.12,0.16,21,4,2,23,grok_free,test,romanized_35,Romanized 35,0.0,grok_free_metrics.csv
+50,50,0,0.0,0.78,0.78,0.7799119647859143,0.7692307692307693,0.8,0.2,0.24,0.52,0.22,0.24,19,6,5,20,grok_free,test,romanized_70,Romanized 70,0.0999999999999999,grok_free_metrics.csv
+50,50,0,0.0,0.74,0.74,0.7348021215830274,0.6875,0.88,0.12,0.4,0.64,0.26,0.4,15,10,3,22,grok_free,test,roman_glyph_35,Roman+Glyph 35,0.14,grok_free_metrics.csv
+50,50,0,0.0,0.7,0.7,0.6899545266639107,0.6470588235294118,0.88,0.12,0.48,0.68,0.3,0.48,13,12,3,22,grok_free,test,roman_glyph_70,Roman+Glyph 70,0.18,grok_free_metrics.csv

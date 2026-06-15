@@ -1,0 +1,5 @@
+system,balanced_accuracy,macro_f1,fnr,fpr,predicted_hate_rate
+qwen_lora_normalized_calibrated,0.6719999999999999,0.6708149337615416,0.268,0.388,0.56
+qwen_normalized_calibrated,0.532,0.4857142857142857,0.768,0.168,0.2
+qwen_raw_uncalibrated,0.522,0.4442661755746845,0.104,0.852,0.874
+qwen_raw_calibrated,0.548,0.546366920915295,0.392,0.512,0.56

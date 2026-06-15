@@ -1,0 +1,6 @@
+rows,valid_predictions,parse_failures,parse_failure_rate,accuracy,balanced_accuracy,macro_f1,hate_precision,hate_recall,fnr,fpr,predicted_hate_rate,balanced_error,max_failure_rate,tn,fp,fn,tp,system,split,variant,variant_label,balanced_accuracy_drop_from_clean
+50,50,0,0.0,0.78,0.78,0.7726333195535345,0.9375,0.6,0.4,0.04,0.32,0.22,0.4,24,1,10,15,chatgpt_free,test,clean,Clean,0.0
+50,50,0,0.0,0.82,0.8200000000000001,0.8139727159983464,1.0,0.64,0.36,0.0,0.32,0.18,0.36,25,0,9,16,chatgpt_free,test,romanized_35,Romanized 35,-0.040000000000000036
+50,50,0,0.0,0.82,0.8200000000000001,0.8181818181818181,0.9,0.72,0.28,0.08,0.4,0.18000000000000002,0.28,23,2,7,18,chatgpt_free,test,romanized_70,Romanized 70,-0.040000000000000036
+50,50,0,0.0,0.86,0.86,0.8599439775910365,0.8461538461538461,0.88,0.12,0.16,0.52,0.14,0.16,21,4,3,22,chatgpt_free,test,roman_glyph_35,Roman+Glyph 35,-0.07999999999999996
+50,50,0,0.0,0.82,0.8200000000000001,0.8193496587715776,0.8636363636363636,0.76,0.24,0.12,0.44,0.18,0.24,22,3,6,19,chatgpt_free,test,roman_glyph_70,Roman+Glyph 70,-0.040000000000000036

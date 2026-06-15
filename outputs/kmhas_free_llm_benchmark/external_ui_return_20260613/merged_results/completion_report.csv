@@ -1,0 +1,5 @@
+provider,expected_rows,valid_rows,missing_rows,duplicate_rows,unexpected_rows,invalid_label_rows,status
+chatgpt_free,250,250,0,0,0,0,complete
+gemini_free,250,250,0,0,0,0,complete
+claude_free,250,250,0,0,0,0,complete
+grok_free,250,250,0,0,0,0,complete

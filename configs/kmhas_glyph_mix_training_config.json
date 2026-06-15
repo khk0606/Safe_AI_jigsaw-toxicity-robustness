@@ -1,0 +1,95 @@
+{
+  "project": "kmhas_glyph_mix_robustness",
+  "task": "binary_korean_hate_speech_detection",
+  "python": {
+    "recommended_interpreter": ".venv/bin/python",
+    "global_python_checked": "Python 3.13.9",
+    "venv_python_checked": "Python 3.14.3"
+  },
+  "dataset": {
+    "source": "adlnlp/K-MHaS",
+    "label_rule": {
+      "not_hate": "label == 8",
+      "hate": "label != 8",
+      "binary_column": "is_hate_speech"
+    },
+    "text_columns": {
+      "clean_or_original": "document",
+      "model_input_for_variant": "obfuscated_document"
+    },
+    "variants": {
+      "clean": {
+        "train": "data/kmhas/processed/clean/kmhas_train_clean.csv",
+        "valid": "data/kmhas/processed/clean/kmhas_valid_clean.csv",
+        "test": "data/kmhas/processed/clean/kmhas_test_clean.csv",
+        "zip": "data/kmhas/processed/kmhas_clean_standardized.zip"
+      },
+      "glyph_mix_35": {
+        "train": "data/kmhas/processed/glyph_mix_35/kmhas_train_glyph_mix_35.csv",
+        "valid": "data/kmhas/processed/glyph_mix_35/kmhas_valid_glyph_mix_35.csv",
+        "test": "data/kmhas/processed/glyph_mix_35/kmhas_test_glyph_mix_35.csv",
+        "zip": "data/kmhas/processed/kmhas_glyph_mix_35.zip",
+        "mean_observed_glyph_char_ratio": 0.283705
+      },
+      "glyph_mix_90": {
+        "train": "data/kmhas/processed/glyph_mix_90/kmhas_train_glyph_mix_90.csv",
+        "valid": "data/kmhas/processed/glyph_mix_90/kmhas_valid_glyph_mix_90.csv",
+        "test": "data/kmhas/processed/glyph_mix_90/kmhas_test_glyph_mix_90.csv",
+        "zip": "data/kmhas/processed/kmhas_glyph_mix_90.zip",
+        "mean_observed_glyph_char_ratio": 0.915313
+      }
+    }
+  },
+  "planned_models": {
+    "word_tfidf_mlp": {
+      "input": "word-level tf-idf",
+      "classifier": "scikit-learn MLPClassifier",
+      "purpose": "word-level baseline expected to be vulnerable to glyph-mix"
+    },
+    "char_tfidf_mlp": {
+      "input": "character n-gram tf-idf",
+      "classifier": "scikit-learn MLPClassifier",
+      "purpose": "character-level baseline expected to be more robust than word-level under mild obfuscation"
+    },
+    "textcnn": {
+      "input": "token or character sequence",
+      "classifier": "PyTorch TextCNN",
+      "purpose": "lightweight neural model comparison"
+    },
+    "korean_transformer_reference": {
+      "candidates": [
+        "KcELECTRA",
+        "KoELECTRA",
+        "KLUE-BERT",
+        "KLUE-RoBERTa"
+      ],
+      "purpose": "stronger Korean reference model if time/resources allow"
+    }
+  },
+  "evaluation_plan": {
+    "train_setting_1": "train on clean, evaluate on clean/glyph_mix_35/glyph_mix_90",
+    "train_setting_2": "train with clean + glyph_mix_35 augmentation, evaluate on clean/glyph_mix_35/glyph_mix_90",
+    "metrics": [
+      "accuracy",
+      "precision",
+      "recall",
+      "f1",
+      "auroc",
+      "f1_drop",
+      "recall_drop",
+      "asr",
+      "confidence_drop"
+    ]
+  },
+  "output_dirs": {
+    "reports": "outputs/kmhas_glyph_mix/reports",
+    "figures": "outputs/kmhas_glyph_mix/figures",
+    "models": "models/kmhas_glyph_mix"
+  },
+  "notes": [
+    "Raw K-MHaS rows may contain hate/offensive comments; avoid showing raw rows in public-facing slides.",
+    "glyph_mix_35 file names were provided by the user zip; observed_glyph_char_ratio was recomputed from actual rune block characters.",
+    "Use aggregate metrics and masked examples for presentation."
+  ]
+}
+

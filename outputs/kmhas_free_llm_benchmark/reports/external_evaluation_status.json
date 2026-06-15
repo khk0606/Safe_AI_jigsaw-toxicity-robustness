@@ -1,0 +1,18 @@
+{
+  "checked_at": "2026-06-09",
+  "gemini_2_5_flash_lite": {
+    "status": "pending_external_credential",
+    "reason": "GEMINI_API_KEY and GOOGLE_API_KEY are not configured. No paid fallback was used.",
+    "resume_command": "GEMINI_API_KEY=... .venv/bin/python scripts/evaluate_gemini_free_llm_benchmark.py --resume"
+  },
+  "chatgpt_free_or_plus_ui": {
+    "status": "prepared_not_executed",
+    "reason": "Browser access to the service is unavailable in this session. The 250-row UI subset, prompt, and importer are ready.",
+    "manifest": "outputs/kmhas_free_llm_benchmark/data/ui_supplementary_250.csv"
+  },
+  "claude_free_ui": {
+    "status": "prepared_not_executed",
+    "reason": "An authenticated Claude Free UI session was not available. The 250-row UI subset, prompt, and importer are ready.",
+    "manifest": "outputs/kmhas_free_llm_benchmark/data/ui_supplementary_250.csv"
+  }
+}

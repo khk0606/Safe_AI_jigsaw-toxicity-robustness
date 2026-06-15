@@ -1,0 +1,4 @@
+run_name,threshold,rows,valid_predictions,parse_failures,parse_failure_rate,accuracy,balanced_accuracy,macro_f1,hate_precision,hate_recall,fnr,fpr,predicted_hate_rate,balanced_error,max_failure_rate,tn,fp,fn,tp,step,source_file
+qwen_lora_step4500,-0.4287500000000079,2500,2500,0,0.0,0.7364,0.7363999999999999,0.7351019997990151,0.7073684210526315,0.8064,0.1936,0.3336,0.57,0.2636,0.3336,833,417,242,1008,4500,qwen_lora_step4500_calibration_selection.csv
+qwen_lora_step3000,-0.25,2500,2500,0,0.0,0.73,0.73,0.7283811953834943,0.6992376992376992,0.8072,0.1928,0.3472,0.5772,0.27,0.3472,816,434,241,1009,3000,qwen_lora_step3000_calibration_selection.csv
+qwen_lora_step1500,0.0,2500,2500,0,0.0,0.6756,0.6756,0.6724021734722186,0.6466265865063461,0.7744,0.2256,0.4232,0.5988,0.3244,0.4232,721,529,282,968,1500,qwen_lora_step1500_calibration_selection.csv

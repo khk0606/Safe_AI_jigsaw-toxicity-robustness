@@ -1,0 +1,9 @@
+{
+  "best_step": 4500,
+  "selection_metric": "calibration balanced_accuracy",
+  "tie_breakers": [
+    "lower max_failure_rate",
+    "higher macro_f1"
+  ],
+  "adapter_path": "models/kmhas_free_llm_benchmark/qwen_lora/best"
+}

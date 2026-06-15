@@ -1,0 +1,8 @@
+system,balanced_accuracy,macro_f1,fnr,fpr,predicted_hate_rate
+normalization_char_tfidf_mlp,0.774,0.7723160495021176,0.312,0.14,0.414
+qwen_lora_normalized_calibrated,0.6719999999999999,0.6708149337615416,0.268,0.388,0.56
+char_tfidf_mlp,0.622,0.5719313821860037,0.72,0.036,0.158
+qwen_raw_calibrated,0.548,0.546366920915295,0.392,0.512,0.56
+koelectra_small,0.544,0.4440543071161049,0.88,0.032,0.076
+qwen_normalized_calibrated,0.532,0.4857142857142857,0.768,0.168,0.2
+qwen_raw_uncalibrated,0.522,0.4442661755746845,0.104,0.852,0.874

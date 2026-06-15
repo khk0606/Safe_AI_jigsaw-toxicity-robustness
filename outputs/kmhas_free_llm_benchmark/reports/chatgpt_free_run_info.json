@@ -1,0 +1,9 @@
+{
+  "system": "chatgpt_free",
+  "displayed_model": "unknown free UI model",
+  "run_date": "2026-06-13",
+  "notes": "Returned teammate UI evaluation; displayed model was not recorded.",
+  "input": "outputs/kmhas_free_llm_benchmark/external_ui_return_20260613/merged_results/chatgpt_free_results.csv",
+  "expected_rows": 250,
+  "received_rows": 250
+}

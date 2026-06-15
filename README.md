@@ -1,195 +1,122 @@
-# Robustness Evaluation of Toxicity Detection under Text Perturbations
+# Korean Hate-Speech Robustness under Text Obfuscation
 
-This project evaluates whether toxicity classifiers remain reliable when toxic comments are obfuscated with small text perturbations.
+This repository evaluates how Korean hate-speech classifiers behave as comments
+are increasingly obfuscated with romanized Korean and rune-like glyphs. It also
+tests two complementary defenses:
 
-The current project upload focuses on:
+1. rule-based normalization followed by a character TF-IDF MLP;
+2. normalization, validation-set calibration, and LoRA adaptation of
+   Qwen2.5-1.5B-Instruct.
 
-```text
-TextCNN clean baseline
-TextCNN perturbation-augmented defense models
-RoBERTa SOTA-style reference model
-```
+The central safety question is not only whether a model detects hate speech, but
+whether it avoids both:
 
-The presentation deck is submitted separately. This repository contains the shareable dataset, model artifacts, training recipes, result tables, and figures.
+- **under-detection**: missing actual hate comments;
+- **over-blocking**: incorrectly blocking non-hate comments.
 
-## Project Motivation
+## Main Result
 
-Online moderation systems should detect toxic comments even when users slightly modify words to bypass filters.
+The primary benchmark uses the same 500 K-MHaS test comments, balanced as
+250 hate and 250 non-hate, across five variants. Each local system therefore
+produces 2,500 predictions.
 
-Examples:
+| Rank | System | Worst-case balanced accuracy | Mean balanced accuracy | Worst max(FNR, FPR) |
+|---:|---|---:|---:|---:|
+| 1 | Normalization + Char TF-IDF MLP | 0.772 | 0.797 | 0.312 |
+| 2 | Qwen LoRA + normalization + calibration | 0.672 | 0.716 | 0.396 |
+| 3 | Char TF-IDF MLP | 0.572 | 0.699 | 0.848 |
+| 4 | KoELECTRA-small | 0.544 | 0.659 | 0.880 |
+| 5 | Qwen raw zero-shot | 0.522 | 0.562 | 0.852 |
 
-```text
-idiot  -> i d i o t
-hate   -> h@te
-bad    -> bad!!!
-```
+On the strongest `roman_glyph_70` condition:
 
-The key question is:
+- raw Qwen: balanced accuracy `0.522`, FNR `0.104`, FPR `0.852`;
+- improved Qwen: balanced accuracy `0.672`, FNR `0.268`, FPR `0.388`.
 
-```text
-Does a model that performs well on clean comments still work after realistic text obfuscation?
-```
+LoRA and calibration substantially reduced Qwen's over-blocking, while the
+normalization-aware character model achieved the best worst-case balance on the
+full local benchmark.
 
-## Repository Files
+![Main ranking](outputs/kmhas_free_llm_benchmark/figures/final_system_ranking.png)
 
-| File | Description |
+## Benchmark Variants
+
+| Variant | Description |
 |---|---|
-| `jigsaw_toxicity_robustness_shareable.zip` | Shareable Jigsaw subset, targeted augmented training set, and clean/perturbed evaluation set |
-| `models_textcnn_core.zip` | TextCNN checkpoints and RoBERTa reference information |
-| `training_recipes_results.zip` | Training scripts, evaluation scripts, result tables, figures, and explanations |
+| `clean` | Original Korean comment |
+| `romanized_35` | About 35% of Hangul syllables replaced by romanized Korean |
+| `romanized_70` | About 70% replaced by romanized Korean |
+| `roman_glyph_35` | Mild romanization with partial rune/glyph substitution |
+| `roman_glyph_70` | Strong romanization with heavier rune/glyph substitution |
 
-## Dataset
-
-Source dataset:
-
-```text
-Jigsaw Unintended Bias in Toxicity Classification
-```
-
-Mirror used during this project:
+The binary task uses the original K-MHaS labels:
 
 ```text
-Intuit-GenSRF/jigsaw-unintended-bias
+original label 8  -> non-hate
+any other label  -> hate
 ```
 
-Binary label rule:
+## Repository Contents
 
 ```text
-target >= 0.5 -> toxic
-target < 0.5  -> non-toxic
+configs/                         MLX-LM LoRA configuration
+docs/                            dataset, model, recipe, and upload documentation
+models/                          Qwen LoRA adapter and fine-tuned KoELECTRA-small
+outputs/kmhas_free_llm_benchmark/
+  data/                          aligned benchmark and LoRA training data
+  figures/                       final PNG figures
+  predictions/                   per-system prediction CSV files
+  reports/                       metrics, rankings, audits, and run metadata
+scripts/                         preparation, training, evaluation, and summary code
 ```
 
-Balanced split:
+## Used Models
 
-| Split | Non-toxic | Toxic | Total |
-|---|---:|---:|---:|
-| Train | 5,000 | 5,000 | 10,000 |
-| Validation | 1,000 | 1,000 | 2,000 |
-| Test | 1,000 | 1,000 | 2,000 |
+- Character TF-IDF + MLP baseline
+- Normalization-aware Character TF-IDF + MLP
+- `monologg/koelectra-small-v3-discriminator`
+- `Qwen/Qwen2.5-1.5B-Instruct`
+- ChatGPT, Gemini, Claude, and Grok free web UIs as a supplementary 250-row
+  comparison
 
-The dataset zip includes:
+The Qwen base weights are not redistributed. The repository includes only the
+trained LoRA adapter. The two large classical `.joblib` files are distributed as
+separate release assets; see [docs/MODELS.md](docs/MODELS.md).
 
-```text
-jigsaw_subset_14k_clean.csv
-train_augmented_targeted_100.csv
-test_clean_and_perturbed_eval.csv
-manifest.json
-column_schema.csv
-reproducibility/perturbations.py
+## Quick Start
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python scripts/verify_free_llm_benchmark.py
 ```
 
-## Perturbations
+To reproduce the summary tables and figures from the included predictions:
 
-The perturbation generator changes the text surface form while keeping the original label fixed.
+```bash
+MPLCONFIGDIR=/tmp/matplotlib-safe-ai \
+XDG_CACHE_HOME=/tmp/xdg-cache-safe-ai \
+python scripts/summarize_free_llm_benchmark.py
 
-| Perturbation | Example |
-|---|---|
-| typo | `stupid -> stupdi` |
-| character substitution | `hate -> h@te` |
-| spacing | `idiot -> i d i o t` |
-| repetition | `bad -> baaad` |
-| punctuation noise | `bad -> bad!!!` |
-| combined | multiple perturbations mixed |
-
-## Models
-
-### TextCNN
-
-The project trains and evaluates TextCNN variants:
-
-| Model | Role |
-|---|---|
-| TextCNN clean | Baseline trained on clean comments |
-| TextCNN 25% general augmentation | Augmentation-ratio comparison |
-| TextCNN 100% targeted augmentation | Main robustness defense model |
-
-TextCNN architecture:
-
-```text
-Embedding
--> Conv1D kernel sizes [3, 4, 5]
--> Global max pooling
--> Dropout
--> Linear output layer
+python scripts/summarize_external_ui_250_comparison.py
 ```
 
-### RoBERTa Reference
+For complete training and evaluation commands, see
+[docs/TRAINING_RECIPES_AND_RESULTS.md](docs/TRAINING_RECIPES_AND_RESULTS.md).
 
-Public SOTA-style reference:
+## Dataset Source and Caution
 
-```text
-unitary/unbiased-toxic-roberta
-https://huggingface.co/unitary/unbiased-toxic-roberta
-```
+The source dataset is [K-MHaS](https://github.com/adlnlp/K-MHaS), a Korean
+multi-label hate-speech dataset. The included benchmark contains selected
+comments and deterministic derived variants.
 
-The RoBERTa checkpoint is not uploaded because it is publicly available. It is used as a strong clean-performance reference model.
+The files contain real hate or offensive language. Keep the source citation and
+review the upstream dataset terms before public redistribution. This project
+does not claim ownership of the original comments.
 
-## Metrics
+## Interpretation Boundary
 
-| Metric | Meaning | Better Direction |
-|---|---|---|
-| Clean F1 | F1 score on original clean text | Higher |
-| Perturbed F1 | F1 score after text perturbation | Higher |
-| F1 Drop | Clean F1 - perturbed F1 | Lower |
-| ASR | Clean-correct samples that become wrong after perturbation | Lower |
-| Toxic Recall Drop | Drop in recall on toxic-only samples | Lower |
+“Best” means the best tested system on this specific K-MHaS obfuscation
+benchmark. It does not establish a universally best moderation model.
 
-## Main Results
-
-### Clean Performance
-
-| Model | Clean F1 | AUROC |
-|---|---:|---:|
-| RoBERTa reference | 0.830 | 0.987 |
-| TextCNN clean | 0.814 | 0.901 |
-| TextCNN targeted augmentation | 0.827 | 0.904 |
-
-### Combined Perturbation Robustness
-
-| Model | F1 Drop | ASR |
-|---|---:|---:|
-| RoBERTa reference | 0.117 | 10.8% |
-| TextCNN clean | 0.086 | 13.2% |
-| TextCNN targeted augmentation | 0.028 | 5.7% |
-
-### Toxic-only Evaluation
-
-| Model | Clean Toxic Recall | Perturbed Toxic Recall | Recall Drop | ASR / Evasion |
-|---|---:|---:|---:|---:|
-| RoBERTa reference | 0.718 | 0.566 | 0.152 | 10.8% |
-| TextCNN clean | 0.828 | 0.676 | 0.152 | 13.2% |
-| TextCNN targeted augmentation | 0.846 | 0.804 | 0.042 | 5.7% |
-
-## Key Takeaway
-
-RoBERTa has the strongest clean performance, but targeted TextCNN is more stable under this controlled text-obfuscation perturbation setting.
-
-This does not mean TextCNN is generally better than RoBERTa. The claim is narrower:
-
-```text
-targeted perturbation augmentation improves robustness under the tested moderation-evasion threat model.
-```
-
-## Reproducibility
-
-The full training and evaluation details are in:
-
-```text
-training_recipes_results.zip
-```
-
-It includes:
-
-```text
-scripts/
-reports/
-figures/
-requirements.txt
-README.md
-```
-
-The model checkpoints are in:
-
-```text
-models_textcnn_core.zip
-```

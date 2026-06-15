@@ -1,0 +1,23 @@
+{
+  "systems": [
+    "char_tfidf_mlp",
+    "normalization_char_tfidf_mlp",
+    "koelectra_small",
+    "qwen_raw_uncalibrated",
+    "qwen_raw_calibrated",
+    "qwen_normalized_calibrated",
+    "qwen_lora_normalized_calibrated"
+  ],
+  "best_tested_system": "normalization_char_tfidf_mlp",
+  "report": "notion_free_llm_qwen_improvement_results_ko.md",
+  "figures": [
+    "balanced_accuracy_by_variant.png",
+    "external_ui_250_balanced_accuracy.png",
+    "external_ui_250_dual_failure.png",
+    "final_system_ranking.png",
+    "fnr_fpr_dual_failure.png",
+    "predicted_hate_rate.png",
+    "qwen_confusion_matrices.png",
+    "qwen_improvement_stages.png"
+  ]
+}

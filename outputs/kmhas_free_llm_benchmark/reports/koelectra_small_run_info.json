@@ -1,0 +1,14 @@
+{
+  "model_name": "monologg/koelectra-small-v3-discriminator",
+  "train_rows": 6000,
+  "epochs": 1,
+  "batch_size": 16,
+  "max_len": 128,
+  "lr": 2e-05,
+  "seed": 42,
+  "model_dir": "models/kmhas_free_llm_benchmark/koelectra_small",
+  "benchmark": "outputs/kmhas_free_llm_benchmark/data/benchmark_test_2500.csv",
+  "reuse_saved": false,
+  "device": "cpu",
+  "trained_this_run": true
+}

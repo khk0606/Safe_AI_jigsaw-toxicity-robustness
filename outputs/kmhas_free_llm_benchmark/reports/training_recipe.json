@@ -1,0 +1,75 @@
+{
+  "benchmark": {
+    "dataset": "K-MHaS",
+    "task": "binary hate speech classification",
+    "test_base_rows": 500,
+    "class_balance": {
+      "hate": 250,
+      "non_hate": 250
+    },
+    "variants": [
+      "clean",
+      "romanized_35",
+      "romanized_70",
+      "roman_glyph_35",
+      "roman_glyph_70"
+    ]
+  },
+  "koelectra_small": {
+    "base_model": "monologg/koelectra-small-v3-discriminator",
+    "train_rows": 6000,
+    "epochs": 1,
+    "batch_size": 16,
+    "max_length": 128,
+    "learning_rate": 0.00002,
+    "seed": 42
+  },
+  "qwen_lora": {
+    "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+    "train_base_ids": 4000,
+    "train_examples": 12000,
+    "train_variants": [
+      "clean",
+      "romanized_35",
+      "roman_glyph_35"
+    ],
+    "held_out_generalization_variants": [
+      "romanized_70",
+      "roman_glyph_70"
+    ],
+    "rank": 8,
+    "alpha_equivalent": 16,
+    "num_lora_layers": 16,
+    "batch_size": 8,
+    "gradient_accumulation_steps": 1,
+    "iterations": 4500,
+    "epochs": 3,
+    "max_length": 256,
+    "long_text_policy": "token-aware head+tail truncation that preserves the assistant label token",
+    "peak_learning_rate": 0.00002,
+    "warmup_iterations": 100,
+    "schedule": "cosine_decay",
+    "adamw_eps": 0.000001,
+    "weight_decay": 0.0,
+    "checkpoint_iterations": [
+      1500,
+      3000,
+      4500
+    ],
+    "selected_checkpoint": 4500,
+    "selected_checkpoint_calibration_balanced_accuracy": 0.7364,
+    "final_roman_glyph_70": {
+      "balanced_accuracy": 0.672,
+      "macro_f1": 0.6708149337615416,
+      "fnr": 0.268,
+      "fpr": 0.388,
+      "predicted_hate_rate": 0.56
+    },
+    "seed": 20260609
+  },
+  "failed_qwen_trial": {
+    "learning_rate": 0.0001,
+    "failure": "long examples truncated the final assistant label, producing a zero-supervision batch and NaN loss",
+    "used_in_results": false
+  }
+}
